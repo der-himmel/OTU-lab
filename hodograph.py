@@ -42,41 +42,32 @@ def hodograph(T1):
     U_chosen = GM_chosen * np.cos(np.radians(phase_chosen))
     V_chosen = GM_chosen * np.sin(np.radians(phase_chosen))
 
-    plt.figure()
-    plt.plot(U_chosen, V_chosen, label=f'Hodograph for T={chosen_T}, k_cr={chosen_k_cr}')
-    plt.plot(0, 0, 'r+', label='Origin', markersize=10)
-    plt.xlabel('Real')
-    plt.ylabel('Imaginary')
-    plt.title('Hodograph for T and k_cr')
-    plt.legend()
-    plt.grid(True)
+    print("T\t\tK_cr\n")
+    for i in range(1, len(T_list), 10):
+        print(f'{T_list[i]:.1f}\t|\t{k_cr_list[i]:.2f}')
+
+    fig, graph = plt.subplots(1, 2, figsize=(12, 6))
+    graph[0].plot(U_chosen, V_chosen, label=f'Hodograph for T={chosen_T}, k_cr={chosen_k_cr}')
+    graph[0].plot(0, 0, 'r+', label='Origin', markersize=10)
+    graph[0].set_xlabel('Real')
+    graph[0].set_ylabel('Imaginary')
+    graph[0].set_title('Hodograph for T and k_cr')
+    graph[0].legend()
+    graph[0].grid(True)
+
+    graph[1].plot(T_list, k_cr_list, 'r-', linewidth=2)
+    graph[1].set_xlabel('T')
+    graph[1].set_ylabel('$K_{cr}$')
+    graph[1].set_title('$K_{cr}$ as a function of $T$')
+    graph[1].grid(True)
     plt.show()
 
     # Return the chosen T and k_cr values
     return T_list, k_cr_list
 
-def k_dependency(T_list, k_cr_list):
-    # Plot the graph of k_cr(T)
-    plt.figure(figsize=(8, 6))
-    plt.plot(T_list, k_cr_list, 'r-', linewidth=2)
-    plt.xlabel('T')
-    plt.ylabel('$K_{cr}$')
-    plt.title('$K_{cr}$ as a function of $T$')
-    plt.grid(True)
-    plt.show()
-
 def main():
     T1 = 0.6
-
-    # Call the first function to find k_cr and T and plot hodograph
-    chosen_T, chosen_k_cr = hodograph(T1)
-
-    print("T\t\tK_cr\n")
-    for i in range(1, len(chosen_T), 10):
-        print(f'{chosen_T[i]:.1f}\t|\t{chosen_k_cr[i]:.2f}')
-
-    # Call the second function to plot k_cr(T)
-    k_dependency(chosen_T, chosen_k_cr)
+    T, k_cr = hodograph(T1)
 
 if __name__ == "__main__":
     main()
