@@ -28,7 +28,7 @@ def hodograph(T1):
 
         # Store T and k_cr values
         T_list.append(T)
-        k_cr_list.append(k)
+        k_cr_list.append(k+1)
 
     # Plot the hodograph for one specific T and k_cr
     chosen_T = T_list[0]
