@@ -17,7 +17,7 @@ def hodograph(T1):
         sys = signal.TransferFunction(B, A)
 
         # Frequency range for hodograph
-        w, GM, _ = signal.bode(sys, np.logspace(-3, 1, 1000))
+        w, GM, _ = signal.bode(sys, np.logspace(-3, 10, 1000))
 
         # Find the index of the frequency where magnitude is closest to 1
         index_closest_to_1 = np.argmin(np.abs(GM - 1.0))
@@ -76,7 +76,7 @@ def main():
         print(f'{chosen_T[i]:.1f}\t|\t{chosen_k_cr[i]:.2f}')
 
     # Call the second function to plot k_cr(T)
-    k_dependency([chosen_T], [chosen_k_cr])
+    k_dependency(chosen_T, chosen_k_cr)
 
 if __name__ == "__main__":
     main()
