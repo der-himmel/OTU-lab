@@ -66,7 +66,7 @@ def plot_k_cr_vs_T(T_list, K_cr_list):
     plt.show()
 
 def main():
-    T1 = 0.9
+    T1 = 0.6
 
     # Call the first function to find k_cr and T and plot hodograph
     chosen_T, chosen_k_cr = find_and_plot_hodograph(T1)
