@@ -2,13 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
 
-def find_and_plot_hodograph(T1):
+def hodograph(T1):
     # Range of T values
-    T_values = np.linspace(0.1, 5, 50)
+    T_values = np.linspace(0.1, 5, 100)
 
     # Initialize lists to store T and k_cr values
     T_list = []
-    K_cr_list = []
+    k_cr_list = []
 
     for T in T_values:
         # Create the transfer function
@@ -28,11 +28,11 @@ def find_and_plot_hodograph(T1):
 
         # Store T and k_cr values
         T_list.append(T)
-        K_cr_list.append(k)
+        k_cr_list.append(k)
 
     # Plot the hodograph for one specific T and k_cr
     chosen_T = T_list[0]
-    chosen_k_cr = K_cr_list[0]
+    chosen_k_cr = k_cr_list[0]
 
     B_chosen = [chosen_k_cr]
     A_chosen = [T1 * chosen_T, (T1 + chosen_T), 1, chosen_k_cr]
@@ -53,12 +53,12 @@ def find_and_plot_hodograph(T1):
     plt.show()
 
     # Return the chosen T and k_cr values
-    return chosen_T, chosen_k_cr
+    return T_list, k_cr_list
 
-def plot_k_cr_vs_T(T_list, K_cr_list):
+def k_dependency(T_list, k_cr_list):
     # Plot the graph of k_cr(T)
     plt.figure(figsize=(8, 6))
-    plt.plot(T_list, K_cr_list, 'b-', linewidth=2)
+    plt.plot(T_list, k_cr_list, 'r-', linewidth=2)
     plt.xlabel('T')
     plt.ylabel('$K_{cr}$')
     plt.title('$K_{cr}$ as a function of $T$')
@@ -69,10 +69,14 @@ def main():
     T1 = 0.6
 
     # Call the first function to find k_cr and T and plot hodograph
-    chosen_T, chosen_k_cr = find_and_plot_hodograph(T1)
+    chosen_T, chosen_k_cr = hodograph(T1)
+
+    print("T\t\tK_cr\n")
+    for i in range(1, len(chosen_T), 10):
+        print(f'{chosen_T[i]:.1f}\t|\t{chosen_k_cr[i]:.2f}')
 
     # Call the second function to plot k_cr(T)
-    plot_k_cr_vs_T([chosen_T], [chosen_k_cr])
+    k_dependency([chosen_T], [chosen_k_cr])
 
 if __name__ == "__main__":
     main()
