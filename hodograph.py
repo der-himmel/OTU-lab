@@ -125,13 +125,14 @@ def graphs(W, A):
 
 def main():
     T1 = 0.6
+    delta_k = 0.1
     T_list, k_cr_list = hodograph(T1)
 
     T = T_list[99]
     k = k_cr_list[99]
 
-    b_n_a = [([k - 0.2], [T1*T, T1 + T, 1, k - 0.2]),
-            ([k + 0.2], [T1*T, T1 + T, 1, k + 0.2]),
+    b_n_a = [([k - delta_k], [T1*T, T1 + T, 1, k - delta_k]),
+            ([k + delta_k], [T1*T, T1 + T, 1, k + delta_k]),
             ([k], [T1*T, T1 + T, 1, k])]
     
     for i, (B_i, A_i) in enumerate(b_n_a):
